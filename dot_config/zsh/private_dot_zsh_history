@@ -1,0 +1,15 @@
+ll ~/.config
+ls -al ~/.config
+cd code/dotfiles
+rm ~/.tmux.conf
+./install
+tmux --version
+tmux -V
+ls ~/.config/tmux
+tmux
+: 1720198920:0;cd code/dotfiles
+: 1720198922:0;./install
+: 1720199933:0;ll
+: 1720200048:0;cd
+: 1720200059:0;unlink .zprofile
+: 1720200066:0;./install
