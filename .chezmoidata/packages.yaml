@@ -1,0 +1,22 @@
+packages:
+  darwin:
+    brews:
+    - 'awscli'
+    - 'bash'
+    - 'bat'
+    - 'eza'
+    - 'fish'
+    - 'fzf'
+    - 'git'
+    - 'jq'
+    - 'lolcat'
+    - 'neovim'
+    - 'starship'
+    - 'thefuck'
+    - 'tldr'
+    - 'vim'
+    - 'zellij'
+    - 'zoxide'
+    casks:
+    - 'spotify'
+    - 'wezterm'

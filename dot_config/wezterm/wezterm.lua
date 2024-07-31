@@ -7,7 +7,7 @@ local config = wezterm.config_builder()
 -- This is where you actually apply your config choices
 
 -- For example, changing the color scheme:
-config.color_scheme = 'Purple Rain'
+config.color_scheme = 'Apathy (base16)'
 config.font = wezterm.font 'ComicCodeLigatures Nerd Font'
 config.font_size = 16
 

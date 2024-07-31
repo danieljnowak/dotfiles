@@ -1,23 +1,22 @@
 layout {
     pane split_direction="vertical"{  
-      pane command="nvim" {
-          name "Editor"
-          size "65%"
+      pane split_direction="horizontal"{
+          size "70%"
+          pane name="work" {
+              size "85%"
+          }
+          pane name="music" {
+              size "15%"
+            }
         }
       pane split_direction="horizontal"{
-          pane split_direction="vertical" {
+          pane {
+            command "tty-clock"
+            args "-s"
+            name "Time"
             size "20%"
-              pane command="cmatrix"{
-                  size "15%"
-                  name "Code"
-                }
-              pane {
-                  command "tty-clock"
-                  args "-s"
-                  name "Time"
-                }
             }
-          pane command="spt"
+          pane
           pane
         }  
       }
