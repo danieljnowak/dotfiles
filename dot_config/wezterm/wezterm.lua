@@ -11,7 +11,5 @@ config.color_scheme = 'Apathy (base16)'
 config.font = wezterm.font 'ComicCodeLigatures Nerd Font'
 config.font_size = 16
 
--- disable the tab bar
-config.enable_tab_bar = false
 -- and finally, return the configuration to wezterm
 return config

@@ -8,4 +8,5 @@ if status is-interactive
     abbr --add cat bat
     abbr --add ls eza --color=always --icons=always
     abbr --add ll eza --color=always --icons=always --long
+    pyenv init - | source
 end
