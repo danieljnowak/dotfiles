@@ -21,7 +21,15 @@ My personalized dotfiles for development and system administration, managed with
 ### Quick Install
 
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply danielnowak
+# Run the chezmoi installer and initialize with your dotfiles
+# You will be prompted for configuration values during installation
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init danieljnowak
+```
+
+Then apply your configuration:
+
+```bash
+~/.local/bin/chezmoi apply
 ```
 
 ### Manual Installation
@@ -33,7 +41,7 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply danielnowak
 
 2. Initialize dotfiles:
    ```bash
-   chezmoi init danielnowak
+   chezmoi init danieljnowak
    ```
 
 3. Preview changes:
@@ -41,7 +49,7 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply danielnowak
    chezmoi diff
    ```
 
-4. Apply configuration:
+4. Apply configuration (you'll be prompted for values):
    ```bash
    chezmoi apply
    ```

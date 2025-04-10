@@ -1,0 +1,19 @@
+data:
+  # Git information
+  git_name: "Your Name"
+  git_email: "your.email@example.com"
+  
+  # Machine type
+  is_work_machine: false
+  
+  # AWS Configuration
+  aws_default_region: "us-west-2"
+  aws_work_region: "us-east-1"
+  aws_work_role_arn: ""  # Optional: Your work role ARN
+  
+  # AWS SSO (Optional)
+  aws_sso_start_url: ""  # Optional: Your SSO URL
+  aws_sso_region: ""     # Optional: Your SSO region
+  aws_sso_account_id: "" # Optional: Your SSO account ID
+  aws_sso_role_name: ""  # Optional: Your SSO role name
+  aws_sso_region_use: "" # Optional: Your SSO-based AWS region 

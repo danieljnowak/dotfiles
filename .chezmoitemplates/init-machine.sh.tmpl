@@ -37,18 +37,18 @@ case {{ .chezmoi.os }} in
     brew install ${ESSENTIAL_PKGS[@]}
     
     # Install VS Code if requested
-    if [ "y" = "y" ]; then
+    if [[ "{{ .install_vscode }}" =~ ^[Yy]$ ]]; then
       echo "Installing VS Code..."
       brew install --cask visual-studio-code
     fi
     
     # Install Cursor if requested
-    if [ "y" = "y" ]; then
+    if [[ "{{ .install_cursor }}" =~ ^[Yy]$ ]]; then
       echo "Installing Cursor..."
       brew install --cask cursor
     fi
     
-    {{ if .is_work_machine }}
+    {{ if eq .is_work_machine "y" }}
     # Work-specific setup
     WORK_PKGS=(
       docker
@@ -68,7 +68,7 @@ case {{ .chezmoi.os }} in
       PKG_INSTALL="sudo apt update && sudo apt install -y"
       
       # Install VS Code if requested
-      if [ "y" = "y" ]; then
+      if [[ "{{ .install_vscode }}" =~ ^[Yy]$ ]]; then
         echo "Installing VS Code..."
         wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
         sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
@@ -83,7 +83,7 @@ case {{ .chezmoi.os }} in
       PKG_INSTALL="sudo dnf install -y"
       
       # Install VS Code if requested
-      if [ "y" = "y" ]; then
+      if [[ "{{ .install_vscode }}" =~ ^[Yy]$ ]]; then
         echo "Installing VS Code..."
         sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
         sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
@@ -95,7 +95,7 @@ case {{ .chezmoi.os }} in
       PKG_INSTALL="sudo pacman -Sy"
       
       # Install VS Code if requested
-      if [ "y" = "y" ]; then
+      if [[ "{{ .install_vscode }}" =~ ^[Yy]$ ]]; then
         echo "Installing VS Code..."
         sudo pacman -Sy code
       fi
@@ -132,12 +132,12 @@ case {{ .chezmoi.os }} in
     npm install -g @bitwarden/cli
     
     # Install Cursor if requested
-    if [ "y" = "y" ]; then
+    if [[ "{{ .install_cursor }}" =~ ^[Yy]$ ]]; then
       echo "Installing Cursor..."
       bash "$HOME/.local/share/chezmoi/.chezmoitemplates/install-cursor.sh"
     fi
     
-    {{ if .is_work_machine }}
+    {{ if eq .is_work_machine "y" }}
     # Work-specific setup
     WORK_PKGS=(
       docker

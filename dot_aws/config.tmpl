@@ -1,19 +1,19 @@
 [default]
-region = {{ promptString "Enter your default AWS region" "us-west-2" }}
+region = {{ .aws_default_region }}
 output = json
 cli_pager = 
 
 [profile work]
-region = {{ promptString "Enter your work AWS region" "us-east-1" }}
+region = {{ .aws_work_region }}
 output = json
-role_arn = {{ promptString "Enter your work role ARN (optional)" "" }}
+{{ if eq .aws_work_role_arn "" }}# role_arn = your-role-arn-here{{ else }}role_arn = {{ .aws_work_role_arn }}{{ end }}
 source_profile = default
 
 # SSO configuration if you use AWS SSO
 [profile sso]
-sso_start_url = {{ promptString "Enter your SSO URL (optional)" "" }}
-sso_region = {{ promptString "Enter your SSO region (optional)" "" }}
-sso_account_id = {{ promptString "Enter your SSO account ID (optional)" "" }}
-sso_role_name = {{ promptString "Enter your SSO role name (optional)" "" }}
-region = {{ promptString "Enter your SSO-based AWS region (optional)" "" }}
+{{ if eq .aws_sso_start_url "" }}# sso_start_url = your-sso-url-here{{ else }}sso_start_url = {{ .aws_sso_start_url }}{{ end }}
+{{ if eq .aws_sso_region "" }}# sso_region = your-sso-region-here{{ else }}sso_region = {{ .aws_sso_region }}{{ end }}
+{{ if eq .aws_sso_account_id "" }}# sso_account_id = your-sso-account-id-here{{ else }}sso_account_id = {{ .aws_sso_account_id }}{{ end }}
+{{ if eq .aws_sso_role_name "" }}# sso_role_name = your-sso-role-name-here{{ else }}sso_role_name = {{ .aws_sso_role_name }}{{ end }}
+{{ if eq .aws_sso_region_use "" }}# region = your-aws-region-here{{ else }}region = {{ .aws_sso_region_use }}{{ end }}
 output = json 
