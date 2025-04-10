@@ -1,0 +1,31 @@
+#!/bin/bash
+set -euo pipefail
+
+# Script to install VS Code extensions from extensions.json
+
+# Check if VS Code is installed
+if ! command -v code &> /dev/null; then
+  echo "VS Code not found. Please install VS Code first."
+  exit 1
+fi
+
+# Path to extensions.json
+EXTENSIONS_JSON="$HOME/.config/Code/User/extensions.json"
+
+if [ ! -f "$EXTENSIONS_JSON" ]; then
+  echo "Extensions list not found at $EXTENSIONS_JSON"
+  exit 1
+fi
+
+# Extract extension IDs and install
+echo "Installing VS Code extensions..."
+
+# Parse JSON and extract recommendation array
+EXTENSIONS=$(cat "$EXTENSIONS_JSON" | grep -o '"[^"]*"' | grep -v "recommendations" | tr -d '"')
+
+for ext in $EXTENSIONS; do
+  echo "Installing $ext..."
+  code --install-extension "$ext" --force
+done
+
+echo "VS Code extensions installed successfully!" 

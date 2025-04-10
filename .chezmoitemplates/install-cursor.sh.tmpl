@@ -1,0 +1,59 @@
+#!/bin/bash
+set -euo pipefail
+
+# Script to install Cursor and configure settings
+
+# Check if Cursor is already installed
+if [[ "{{ .chezmoi.os }}" == "darwin" ]]; then
+  if [ ! -d "/Applications/Cursor.app" ]; then
+    echo "Installing Cursor on macOS..."
+    brew install --cask cursor
+  else
+    echo "Cursor is already installed."
+  fi
+elif [[ "{{ .chezmoi.os }}" == "linux" ]]; then
+  if ! command -v cursor &> /dev/null; then
+    echo "Installing Cursor on Linux..."
+    
+    # Create a temporary directory
+    TEMP_DIR=$(mktemp -d)
+    cd "$TEMP_DIR"
+    
+    # Download the latest Cursor .deb package or AppImage
+    if command -v apt &> /dev/null; then
+      # Debian/Ubuntu
+      curl -L -o cursor.deb "https://download.cursor.sh/linux/cursor.deb"
+      sudo apt install -y ./cursor.deb
+    elif command -v dnf &> /dev/null; then
+      # Fedora/RHEL
+      curl -L -o cursor.rpm "https://download.cursor.sh/linux/cursor.rpm"
+      sudo dnf install -y ./cursor.rpm
+    else
+      # Fallback to AppImage
+      curl -L -o cursor.AppImage "https://download.cursor.sh/linux/cursor.AppImage"
+      chmod +x cursor.AppImage
+      mkdir -p "$HOME/.local/bin"
+      mv cursor.AppImage "$HOME/.local/bin/cursor"
+    fi
+    
+    # Clean up
+    cd - > /dev/null
+    rm -rf "$TEMP_DIR"
+  else
+    echo "Cursor is already installed."
+  fi
+fi
+
+# Configure Cursor settings
+echo "Setting up Cursor configuration..."
+
+# Create Cursor config directory if it doesn't exist
+mkdir -p "$HOME/.config/Cursor/User/snippets"
+
+# Copy configuration files from chezmoi data
+cp "{{ .chezmoi.sourceDir }}/dot_config/Cursor/User/settings.json" "$HOME/.config/Cursor/User/settings.json"
+cp "{{ .chezmoi.sourceDir }}/dot_config/Cursor/User/keybindings.json" "$HOME/.config/Cursor/User/keybindings.json"
+cp "{{ .chezmoi.sourceDir }}/dot_config/Cursor/User/extensions.json" "$HOME/.config/Cursor/User/extensions.json"
+cp "{{ .chezmoi.sourceDir }}/dot_config/Cursor/User/snippets/devops.code-snippets" "$HOME/.config/Cursor/User/snippets/devops.code-snippets"
+
+echo "Cursor configuration complete!" 

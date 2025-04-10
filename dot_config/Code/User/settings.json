@@ -1,0 +1,138 @@
+{
+  // Editor appearance
+  "workbench.colorTheme": "Tokyo Night",
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.fontFamily": "'Codelia NF', 'JetBrains Mono', Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontSize": 14,
+  "editor.lineHeight": 1.5,
+  "terminal.integrated.fontFamily": "'Codelia NF', 'JetBrains Mono', monospace",
+  "terminal.integrated.fontSize": 13,
+  "window.zoomLevel": 0,
+  
+  // Editor behavior
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "editor.minimap.enabled": false,
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.smoothScrolling": true,
+  "editor.linkedEditing": true,
+  "editor.suggestSelection": "first",
+  "editor.tabSize": 2,
+  "editor.wordWrap": "off",
+  "editor.renderWhitespace": "boundary",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+  
+  // Files
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/.terraform": true,
+    "**/.terraform.lock.hcl": false,
+    "**/*.tfstate": true,
+    "**/*.tfstate.*": true,
+    "**/terraform.tfvars": false,
+    "**/.pytest_cache": true,
+    "**/__pycache__": true,
+    "**/.venv": true
+  },
+  
+  // Terminal
+  "terminal.integrated.defaultProfile.linux": "fish",
+  "terminal.integrated.defaultProfile.osx": "fish",
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.scrollback": 10000,
+  "terminal.integrated.copyOnSelection": false,
+
+  // Git
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "git.autofetch": true,
+  "git.openRepositoryInParentFolders": "always",
+  "diffEditor.ignoreTrimWhitespace": false,
+  
+  // DevOps Extensions
+  "terraform.languageServer.enable": true,
+  "terraform.format.enable": true,
+  "terraform.format.formatOnSave": true,
+  "terraform.experimentalFeatures.validateOnSave": true,
+
+  "docker.showStartPage": false,
+  
+  "yaml.schemas": {
+    "kubernetes": ["k8s/**/*.yaml", "kubernetes/**/*.yaml", "kube/**/*.yaml"]
+  },
+  "yaml.format.enable": true,
+  "yaml.completion": true,
+  "yaml.validate": true,
+  
+  // Python
+  "python.analysis.autoImportCompletions": true,
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.formatting.provider": "black",
+  
+  // JSON
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  
+  // Shell Script
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  
+  // Markdown
+  "[markdown]": {
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+    "editor.formatOnSave": true,
+    "editor.wordWrap": "on"
+  },
+  "markdown.preview.breaks": true,
+  
+  // HCL/Terraform
+  "[terraform]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "hashicorp.terraform"
+  },
+  "[hcl]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "hashicorp.terraform"
+  },
+  
+  // YAML
+  "[yaml]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  
+  // Telemetry
+  "telemetry.telemetryLevel": "off",
+  "workbench.enableExperiments": false,
+  "workbench.settings.enableNaturalLanguageSearch": false,
+  
+  // Joker-inspired customizations - purple and green
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#5A2F80",
+    "activityBar.background": "#2C1A33",
+    "activityBar.foreground": "#50C878",
+    "activityBarBadge.background": "#50C878",
+    "activityBarBadge.foreground": "#1A1A1A",
+    "statusBar.background": "#2C1A33",
+    "statusBar.foreground": "#50C878",
+    "titleBar.activeBackground": "#2C1A33",
+    "titleBar.activeForeground": "#8A2BE2",
+    "editorCursor.foreground": "#8A2BE2",
+    "terminal.ansiGreen": "#50C878",
+    "terminal.ansiMagenta": "#8A2BE2",
+    "terminalCursor.foreground": "#8A2BE2"
+  }
+} 

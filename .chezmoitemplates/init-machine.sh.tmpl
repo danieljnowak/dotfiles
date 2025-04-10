@@ -36,6 +36,18 @@ case {{ .chezmoi.os }} in
     echo "Installing essential packages..."
     brew install ${ESSENTIAL_PKGS[@]}
     
+    # Install VS Code if requested
+    if {{ promptBool "Install VS Code" true }}; then
+      echo "Installing VS Code..."
+      brew install --cask visual-studio-code
+    fi
+    
+    # Install Cursor if requested
+    if {{ promptBool "Install Cursor" true }}; then
+      echo "Installing Cursor..."
+      brew install --cask cursor
+    fi
+    
     {{ if .is_work_machine }}
     # Work-specific setup
     WORK_PKGS=(
@@ -54,12 +66,40 @@ case {{ .chezmoi.os }} in
     if command -v apt >/dev/null 2>&1; then
       PKG_MANAGER="apt"
       PKG_INSTALL="sudo apt update && sudo apt install -y"
+      
+      # Install VS Code if requested
+      if {{ promptBool "Install VS Code" true }}; then
+        echo "Installing VS Code..."
+        wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+        sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+        sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+        rm -f packages.microsoft.gpg
+        sudo apt update
+        sudo apt install -y code
+      fi
+      
     elif command -v dnf >/dev/null 2>&1; then
       PKG_MANAGER="dnf"
       PKG_INSTALL="sudo dnf install -y"
+      
+      # Install VS Code if requested
+      if {{ promptBool "Install VS Code" true }}; then
+        echo "Installing VS Code..."
+        sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+        sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+        sudo dnf install -y code
+      fi
+      
     elif command -v pacman >/dev/null 2>&1; then
       PKG_MANAGER="pacman"
       PKG_INSTALL="sudo pacman -Sy"
+      
+      # Install VS Code if requested
+      if {{ promptBool "Install VS Code" true }}; then
+        echo "Installing VS Code..."
+        sudo pacman -Sy code
+      fi
+      
     else
       echo "Unsupported Linux distribution"
       exit 1
@@ -90,6 +130,12 @@ case {{ .chezmoi.os }} in
     
     echo "Installing Bitwarden CLI..."
     npm install -g @bitwarden/cli
+    
+    # Install Cursor if requested
+    if {{ promptBool "Install Cursor" true }}; then
+      echo "Installing Cursor..."
+      bash "$HOME/.local/share/chezmoi/.chezmoitemplates/install-cursor.sh"
+    fi
     
     {{ if .is_work_machine }}
     # Work-specific setup
@@ -122,5 +168,13 @@ fi
 
 # Make sure ~/.local/bin exists and is in PATH
 mkdir -p "$HOME/.local/bin"
+
+# Install VS Code extensions if VS Code is installed
+if command -v code >/dev/null 2>&1; then
+  if [[ -f "$HOME/.config/Code/User/extensions.json" ]]; then
+    echo "Installing VS Code extensions..."
+    bash "$HOME/.local/share/chezmoi/.chezmoitemplates/install-vscode-extensions.sh"
+  fi
+fi
 
 echo "Machine setup complete!" 

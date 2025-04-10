@@ -1,0 +1,192 @@
+{
+  // Terraform snippets
+  "Terraform Module": {
+    "prefix": "tfmodule",
+    "body": [
+      "module \"${1:name}\" {",
+      "  source = \"${2:source}\"",
+      "  version = \"${3:version}\"",
+      "  ",
+      "  ${0}",
+      "}"
+    ],
+    "description": "Terraform module block"
+  },
+  "Terraform Resource": {
+    "prefix": "tfresource",
+    "body": [
+      "resource \"${1:type}\" \"${2:name}\" {",
+      "  ${0}",
+      "}"
+    ],
+    "description": "Terraform resource block"
+  },
+  "Terraform Data": {
+    "prefix": "tfdata",
+    "body": [
+      "data \"${1:type}\" \"${2:name}\" {",
+      "  ${0}",
+      "}"
+    ],
+    "description": "Terraform data block"
+  },
+  "Terraform Variable": {
+    "prefix": "tfvar",
+    "body": [
+      "variable \"${1:name}\" {",
+      "  description = \"${2:description}\"",
+      "  type        = ${3:string}",
+      "  default     = ${4:null}",
+      "}"
+    ],
+    "description": "Terraform variable block"
+  },
+  "Terraform Output": {
+    "prefix": "tfoutput",
+    "body": [
+      "output \"${1:name}\" {",
+      "  description = \"${2:description}\"",
+      "  value       = ${3:value}",
+      "  sensitive   = ${4:false}",
+      "}"
+    ],
+    "description": "Terraform output block"
+  },
+  
+  // Kubernetes snippets
+  "Kubernetes Deployment": {
+    "prefix": "k8s-deployment",
+    "body": [
+      "apiVersion: apps/v1",
+      "kind: Deployment",
+      "metadata:",
+      "  name: ${1:name}",
+      "  namespace: ${2:default}",
+      "spec:",
+      "  replicas: ${3:1}",
+      "  selector:",
+      "    matchLabels:",
+      "      app: ${1:name}",
+      "  template:",
+      "    metadata:",
+      "      labels:",
+      "        app: ${1:name}",
+      "    spec:",
+      "      containers:",
+      "      - name: ${1:name}",
+      "        image: ${4:image}:${5:tag}",
+      "        ports:",
+      "        - containerPort: ${6:80}",
+      "        resources:",
+      "          limits:",
+      "            cpu: ${7:100m}",
+      "            memory: ${8:128Mi}",
+      "          requests:",
+      "            cpu: ${9:50m}",
+      "            memory: ${10:64Mi}",
+      "        env:",
+      "        - name: ${11:ENV_VAR}",
+      "          value: \"${12:value}\"",
+      "      ${0}"
+    ],
+    "description": "Kubernetes Deployment"
+  },
+  "Kubernetes Service": {
+    "prefix": "k8s-service",
+    "body": [
+      "apiVersion: v1",
+      "kind: Service",
+      "metadata:",
+      "  name: ${1:name}",
+      "  namespace: ${2:default}",
+      "spec:",
+      "  selector:",
+      "    app: ${3:app-label}",
+      "  ports:",
+      "  - port: ${4:80}",
+      "    targetPort: ${5:80}",
+      "  type: ${6|ClusterIP,NodePort,LoadBalancer|}",
+      "  ${0}"
+    ],
+    "description": "Kubernetes Service"
+  },
+  
+  // Docker snippets
+  "Dockerfile": {
+    "prefix": "dockerfile",
+    "body": [
+      "FROM ${1:alpine:latest}",
+      "",
+      "WORKDIR /app",
+      "",
+      "COPY . .",
+      "",
+      "RUN ${2:command}",
+      "",
+      "EXPOSE ${3:port}",
+      "",
+      "CMD [\"${4:command}\"]",
+      "${0}"
+    ],
+    "description": "Basic Dockerfile"
+  },
+  "Docker Compose": {
+    "prefix": "docker-compose",
+    "body": [
+      "version: '3'",
+      "",
+      "services:",
+      "  ${1:service-name}:",
+      "    image: ${2:image:tag}",
+      "    ports:",
+      "      - \"${3:host-port}:${4:container-port}\"",
+      "    environment:",
+      "      - ${5:ENV_VAR}=${6:value}",
+      "    volumes:",
+      "      - ${7:host-path}:${8:container-path}",
+      "    ${0}"
+    ],
+    "description": "Docker Compose service"
+  },
+  
+  // Bash/Shell snippets
+  "Bash Script Header": {
+    "prefix": "bash-header",
+    "body": [
+      "#!/bin/bash",
+      "set -euo pipefail",
+      "",
+      "# ${1:Script description}",
+      "",
+      "${0}"
+    ],
+    "description": "Bash script header with safe mode"
+  },
+  "Bash Function": {
+    "prefix": "bash-function",
+    "body": [
+      "${1:function_name}() {",
+      "  local ${2:variable}=\"${3:value}\"",
+      "  ",
+      "  ${0}",
+      "}"
+    ],
+    "description": "Bash function definition"
+  },
+  
+  // AWS CLI snippets
+  "AWS S3 Sync": {
+    "prefix": "aws-s3-sync",
+    "body": [
+      "aws s3 sync ${1:local_path} s3://${2:bucket}/${3:prefix} ${4:--delete} ${0:--exclude \"*.tmp\"}"
+    ],
+    "description": "AWS S3 sync command"
+  },
+  "AWS EC2 Describe": {
+    "prefix": "aws-ec2-describe",
+    "body": [
+      "aws ec2 describe-instances --filters \"Name=${1:tag:Name},Values=${2:value}\" --query \"Reservations[].Instances[].[${3:InstanceId,State.Name,PrivateIpAddress}]\" --output ${4|table,json,text|}"
+    ],
+    "description": "AWS EC2 describe instances"
+  }
+} 

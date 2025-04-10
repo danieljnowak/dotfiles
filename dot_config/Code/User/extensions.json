@@ -1,0 +1,55 @@
+{
+  "recommendations": [
+    // Themes and UI
+    "enkia.tokyo-night",
+    "pkief.material-icon-theme",
+    
+    // General Development
+    "visualstudioexptteam.vscodeintellicode",
+    "formulahendry.code-runner",
+    "aaron-bond.better-comments",
+    "shardulm94.trailing-spaces",
+    "streetsidesoftware.code-spell-checker",
+    "editorconfig.editorconfig",
+    
+    // Git and SCM
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    "donjayamanne.githistory",
+    
+    // Cloud and DevOps
+    "hashicorp.terraform",
+    "ms-azuretools.vscode-docker",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "redhat.vscode-yaml",
+    "amazonwebservices.aws-toolkit-vscode",
+    
+    // Infrastructure as Code
+    "wholroyd.jinja",
+    "samuelcolvin.jinjahtml",
+    "4ops.terraform",
+    "redhat.ansible",
+    
+    // Shell & Scripting
+    "foxundermoon.shell-format",
+    "timonwong.shellcheck",
+    "mads-hartmann.bash-ide-vscode",
+    
+    // Markdown and Documentation
+    "yzhang.markdown-all-in-one",
+    "davidanson.vscode-markdownlint",
+    
+    // Python
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-python.black-formatter",
+    
+    // JSON, YAML, etc.
+    "esbenp.prettier-vscode",
+    "mohsen1.prettify-json",
+    
+    // Remote Development
+    "ms-vscode-remote.remote-ssh",
+    "ms-vscode-remote.remote-containers"
+  ]
+} 
