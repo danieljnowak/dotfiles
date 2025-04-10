@@ -1,0 +1,22 @@
+# K8s management workspace
+name: k8s
+root: ~/
+
+windows:
+  - monitoring:
+      layout: main-vertical
+      panes:
+        - k9s
+        - watch kubectl get pods
+        - top
+  - logs:
+      layout: tiled
+      panes:
+        - stern system
+        - stern app
+  - tools:
+      layout: main-horizontal
+      panes:
+        - kubectl
+        - helm
+        - #empty 

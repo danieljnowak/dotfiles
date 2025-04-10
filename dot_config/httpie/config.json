@@ -1,0 +1,11 @@
+{
+  "default_options": [
+    "--style=monokai",
+    "--pretty=all",
+    "--verbose"
+  ],
+  "implicit_content_type": "json",
+  "default_scheme": "https",
+  "default_verify": true,
+  "auto_save_cookies": false
+} 

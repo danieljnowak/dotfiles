@@ -1,0 +1,103 @@
+# Joker-inspired custom skin for k9s
+k9s:
+  # General K9s styles
+  body:
+    fgColor: "#a9b1d6"
+    bgColor: "#1a1b26"
+    logoColor: "#8A2BE2" # Bright purple
+  
+  # Prompt styles
+  prompt:
+    fgColor: "#a9b1d6"
+    bgColor: "#1a1b26"
+    suggestColor: "#50C878" # Emerald green
+  
+  # Menu items
+  info:
+    fgColor: "#50C878" # Emerald green
+    sectionColor: "#8A2BE2" # Bright purple
+  
+  # Frame component styling
+  frame:
+    title:
+      fgColor: "#8A2BE2" # Bright purple
+      bgColor: "#1a1b26"
+      highlightColor: "#50C878" # Emerald green
+      counterColor: "#50C878" # Emerald green
+      filterColor: "#f7768e"
+    crumbs:
+      fgColor: "#a9b1d6"
+      bgColor: "#1a1b26"
+      activeColor: "#8A2BE2" # Bright purple
+    border:
+      fgColor: "#8A2BE2" # Bright purple
+      focusColor: "#50C878" # Emerald green
+    menu:
+      fgColor: "#a9b1d6"
+      bgColor: "#1a1b26"
+      activeColor: "#1a1b26"
+      
+  # Table view coloring
+  views:
+    # Charts coloring
+    charts:
+      bgColor: "#1a1b26"
+      defaultDialColors:
+        - "#8A2BE2" # Bright purple
+        - "#50C878" # Emerald green
+      defaultChartColors:
+        - "#8A2BE2" # Bright purple
+        - "#50C878" # Emerald green
+    
+    # Table coloring
+    table:
+      fgColor: "#a9b1d6"
+      bgColor: "#1a1b26"
+      cursorColor: "#22374a"
+      header:
+        fgColor: "#8A2BE2" # Bright purple
+        bgColor: "#1a1b26"
+        sorterColor: "#50C878" # Emerald green
+    
+    # Log view styling
+    logs:
+      fgColor: "#a9b1d6"
+      bgColor: "#1a1b26"
+      indicator:
+        fgColor: "#50C878" # Emerald green
+        bgColor: "#1a1b26"
+    
+    # YAML view styling
+    yaml:
+      keyColor: "#8A2BE2" # Bright purple
+      valueColor: "#a9b1d6"
+      colonColor: "#c0caf5"
+  
+  # Resource status colors
+  colors:
+    # Pod status
+    pod:
+      waiting: "#f7768e"
+      succeeded: "#50C878" # Emerald green
+      failed: "#f7768e"
+      unknown: "#ff9e64"
+      terminated: "#ff9e64"
+      running: "#50C878" # Emerald green
+      completed: "#7aa2f7"
+      ready: "#7aa2f7"
+      initializing: "#9ece6a"
+      notReady: "#f7768e"
+    
+    # Service coloring
+    svc:
+      pending: "#ff9e64"
+      failed: "#f7768e"
+      unknown: "#9ece6a"
+      passed: "#50C878" # Emerald green
+      warning: "#e0af68"
+    
+    # Node status
+    node:
+      ready: "#50C878" # Emerald green
+      notReady: "#f7768e"
+      unknown: "#ff9e64" 

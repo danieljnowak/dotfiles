@@ -1,213 +1,222 @@
-[username]
-style_user = "green bold"
-style_root = "red bold"
-format = "[$user]($style) "
-disabled = true
-show_always = false
+# Simple, clean prompt with Joker-inspired purple and green colors
 
-[hostname]
-ssh_only = false
-format = '[$hostname](bold red) '
-trim_at = "."
-disabled = false
+# Format of the prompt
+format = """
+$directory\
+$git_branch\
+$git_status\
+$cmd_duration\
+$line_break\
+$character
+"""
 
-# Replace the "❯" symbol in the prompt with "➜"
-[character]                            # The name of the module we are configuring is "character"
-success_symbol = "[➜](bold red)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
-error_symbol = "[✗](bold red)"
+# Set a custom prompt character
+[character]
+success_symbol = "[➜](bold #8A2BE2)"  # Bright purple
+error_symbol = "[✗](bold #FF3131)"    # Bright red for errors
 
+# Directory display
+[directory]
+style = "bold #50C878"                # Emerald green
+truncation_length = 3
+truncation_symbol = "…/"
+read_only = " 󰌾"
+home_symbol = "~"
+
+# Git branch display
+[git_branch]
+style = "bold #8A2BE2"                # Bright purple
+symbol = " "
+format = "[$symbol$branch]($style) "
+
+# Git status indicators
+[git_status]
+style = "#50C878"                     # Emerald green
+format = '([\[$all_status$ahead_behind\]]($style) )'
+conflicted = "="
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+untracked = "?"
+stashed = "$"
+modified = "!"
+staged = "+"
+renamed = "»"
+deleted = "✘"
+
+# Command duration
 [cmd_duration]
-min_time = 5000
-format = 'took [$duration](bold yellow)'
+min_time = 2000                       # Show for commands that took more than 2s
+format = " took [$duration]($style)"
+style = "italic #8A2BE2"              # Italic purple
 
+# Disable unnecessary modules to keep it clean
 [aws]
 disabled = true
 
+[battery]
+disabled = true
+
 [buf]
-symbol = " "
 disabled = true
 
 [c]
-symbol = " "
+disabled = true
+
+[cmake]
 disabled = true
 
 [conda]
-symbol = " "
+disabled = true
+
+[container]
 disabled = true
 
 [crystal]
-symbol = " "
 disabled = true
 
 [dart]
-symbol = " "
 disabled = true
-[directory]
-read_only = " 󰌾"
-home_symbol = " ~"
+
+[deno]
+disabled = true
 
 [docker_context]
-symbol = " "
+disabled = true
+
+[dotnet]
 disabled = true
 
 [elixir]
-symbol = " "
 disabled = true
 
 [elm]
-symbol = " "
+disabled = true
+
+[erlang]
 disabled = true
 
 [fennel]
-symbol = " "
 disabled = true
 
 [fossil_branch]
-symbol = " "
+disabled = true
 
-[git_branch]
-symbol = " "
+[gcloud]
+disabled = true
 
 [golang]
-symbol = " "
+disabled = true
 
 [guix_shell]
-symbol = " "
 disabled = true
 
 [haskell]
-symbol = " "
 disabled = true
 
 [haxe]
-symbol = " "
+disabled = true
+
+[helm]
 disabled = true
 
 [hg_branch]
-symbol = " "
+disabled = true
+
+[hostname]
+disabled = true
 
 [java]
-symbol = " "
 disabled = true
 
 [julia]
-symbol = " "
 disabled = true
 
 [kotlin]
-symbol = " "
+disabled = true
+
+[kubernetes]
 disabled = true
 
 [lua]
-symbol = " "
+disabled = true
 
 [memory_usage]
-symbol = "󰍛 "
 disabled = true
 
 [meson]
-symbol = "󰔷 "
 disabled = true
 
 [nim]
-symbol = "󰆥 "
 disabled = true
 
 [nix_shell]
-symbol = " "
 disabled = true
 
 [nodejs]
-symbol = " "
 disabled = true
 
 [ocaml]
-symbol = " "
 disabled = true
 
-[os.symbols]
-Alpaquita = " "
-Alpine = " "
-AlmaLinux = " "
-Amazon = " "
-Android = " "
-Arch = " "
-Artix = " "
-CentOS = " "
-Debian = " "
-DragonFly = " "
-Emscripten = " "
-EndeavourOS = " "
-Fedora = " "
-FreeBSD = " "
-Garuda = "󰛓 "
-Gentoo = " "
-HardenedBSD = "󰞌 "
-Illumos = "󰈸 "
-Kali = " "
-Linux = " "
-Mabox = " "
-Macos = " "
-Manjaro = " "
-Mariner = " "
-MidnightBSD = " "
-Mint = " "
-NetBSD = " "
-NixOS = " "
-OpenBSD = "󰈺 "
-openSUSE = " "
-OracleLinux = "󰌷 "
-Pop = " "
-Raspbian = " "
-Redhat = " "
-RedHatEnterprise = " "
-RockyLinux = " "
-Redox = "󰀘 "
-Solus = "󰠳 "
-SUSE = " "
-Ubuntu = " "
-Unknown = " "
-Void = " "
-Windows = "󰍲 "
-
 [package]
-symbol = "󰏗 "
 disabled = true
 
 [perl]
-symbol = " "
 disabled = true
 
 [php]
-symbol = " "
 disabled = true
 
-[pijul_channel]
-symbol = " "
+[pulumi]
+disabled = true
+
+[purescript]
 disabled = true
 
 [python]
-symbol = " "
+disabled = true
 
 [rlang]
-symbol = "󰟔 "
 disabled = true
 
 [ruby]
-symbol = " "
+disabled = true
 
 [rust]
-symbol = " "
 disabled = true
 
 [scala]
-symbol = " "
 disabled = true
 
+[shlvl]
+disabled = true
+
+[singularity]
+disabled = true
+
+[spack]
+disabled = true
+
+[status]
+disabled = false
+format = '[$status]($style) '
+style = 'bold red'
+
 [swift]
-symbol = " "
+disabled = true
+
+[terraform]
+disabled = true
+
+[username]
+disabled = true
+
+[vagrant]
+disabled = true
+
+[vlang]
 disabled = true
 
 [zig]
-symbol = " "
 disabled = true

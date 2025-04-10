@@ -1,0 +1,20 @@
+{
+  "credsStore": "{{ if eq .chezmoi.os "darwin" }}osxkeychain{{ else if eq .chezmoi.os "windows" }}wincred{{ else }}secretservice{{ end }}",
+  "auths": {},
+  "currentContext": "default",
+  "plugins": {
+    "buildx": {
+      "enabled": true
+    },
+    "compose": {
+      "enabled": true
+    },
+    "scan": {
+      "enabled": true
+    }
+  },
+  "experimental": "enabled",
+  "features": {
+    "buildkit": true
+  }
+} 

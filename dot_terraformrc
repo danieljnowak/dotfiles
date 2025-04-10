@@ -1,0 +1,30 @@
+# Terraform CLI configuration file
+
+# Plugin caching to speed up terraform init
+plugin_cache_dir = "$HOME/.terraform.d/plugin-cache"
+
+# Disable telemetry collection
+disable_checkpoint = true
+
+# Provider plugin mirrors - uncomment if you need an internal mirror
+# provider_installation {
+#   network_mirror {
+#     url = "https://terraform.example.com/"
+#   }
+# }
+
+# Configure Terraform Cloud if you use it
+# credentials "app.terraform.io" {
+#   token = "get-from-bitwarden"
+# }
+
+# Developer overrides for plugin debugging - useful for dev work
+# dev_overrides {
+#   "registry.terraform.io/hashicorp/aws" = "/path/to/terraform-provider-aws"
+# }
+
+# CLI config
+cli_config {
+  color = true
+  disable_checkpoint = true
+} 

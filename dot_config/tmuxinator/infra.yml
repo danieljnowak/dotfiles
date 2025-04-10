@@ -1,0 +1,21 @@
+# Infrastructure management workspace
+name: infra
+root: ~/projects/infra
+
+windows:
+  - editor:
+      layout: main-vertical
+      panes:
+        - nvim
+        - #empty
+  - terraform:
+      layout: main-horizontal
+      panes:
+        - terraform
+        - terraform-docs
+  - gitops:
+      layout: tiled
+      panes:
+        - cd flux && ls
+        - cd argocd && ls
+        - git status 

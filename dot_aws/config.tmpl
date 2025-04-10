@@ -1,0 +1,19 @@
+[default]
+region = {{ promptString "Enter your default AWS region" "us-west-2" }}
+output = json
+cli_pager = 
+
+[profile work]
+region = {{ promptString "Enter your work AWS region" "us-east-1" }}
+output = json
+role_arn = {{ promptString "Enter your work role ARN (optional)" "" }}
+source_profile = default
+
+# SSO configuration if you use AWS SSO
+[profile sso]
+sso_start_url = {{ promptString "Enter your SSO URL (optional)" "" }}
+sso_region = {{ promptString "Enter your SSO region (optional)" "" }}
+sso_account_id = {{ promptString "Enter your SSO account ID (optional)" "" }}
+sso_role_name = {{ promptString "Enter your SSO role name (optional)" "" }}
+region = {{ promptString "Enter your SSO-based AWS region (optional)" "" }}
+output = json 

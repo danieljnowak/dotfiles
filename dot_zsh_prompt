@@ -1,0 +1,49 @@
+# ZSH prompt configuration with Joker colors
+
+# Setup colors
+autoload -U colors && colors
+
+# Joker color palette
+joker_purple="#8A2BE2" # Bright purple
+joker_green="#50C878"  # Emerald green
+
+# Setup prompt with git integration
+function git_prompt_info() {
+  local ref
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  echo " %F{$joker_purple}${ref#refs/heads/}%f$(parse_git_dirty)"
+}
+
+function parse_git_dirty() {
+  local STATUS
+  STATUS=$(git status --porcelain 2> /dev/null | tail -n1)
+  if [[ -n $STATUS ]]; then
+    echo " %F{$joker_green}[!]%f"
+  fi
+  
+  # Check for unpushed/unpulled changes
+  local git_status=""
+  
+  # Check for unpushed commits
+  if [[ -n $(git log @{u}.. 2> /dev/null) ]]; then
+    git_status+="↑"
+  fi
+  
+  # Check for unpulled commits
+  if [[ -n $(git log ..@{u} 2> /dev/null) ]]; then
+    git_status+="↓"
+  fi
+  
+  if [[ -n $git_status ]]; then
+    echo " %F{$joker_green}[$git_status]%f"
+  fi
+}
+
+# Set the prompt
+PROMPT=$'\n%F{$joker_green}%~%f$(git_prompt_info)\n%F{$joker_purple}➜%f '
+
+# Update prompt when directory changes
+precmd() {
+  # Handle git prompt refresh
+  zle reset-prompt
+} 

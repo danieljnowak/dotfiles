@@ -1,0 +1,56 @@
+k9s:
+  # Set the log viewer to follow logs by default
+  logger:
+    tail: 200
+    buffer: 5000
+    sinceSeconds: 300
+    fullScreenLogs: false
+    textWrap: false
+    showTime: true
+  
+  # Kubernetes resource config
+  thresholds:
+    cpu:
+      critical: 90
+      warn: 70
+    memory:
+      critical: 90
+      warn: 70
+  
+  # Refresh rate in seconds
+  refreshRate: 2
+  
+  # Set a max number of returned items
+  maxConnRetry: 5
+  
+  # Configure readOnly mode
+  readOnly: false
+  
+  # Set UI styling
+  ui:
+    skin: joker  # Custom skin - defined below
+    enableMouse: true
+    headless: false
+    logoless: false
+    crumbsless: false
+    noIcons: false
+  
+  # Set shell commands to execute when running externals
+  shellPod:
+    image: busybox:1.35
+    command: []
+    args: []
+    namespace: default
+  
+  # Shortcuts for filtering
+  hotKey:
+    shift-0: :pod
+    shift-1: :deploy
+    shift-2: :sts
+    shift-3: :svc
+    shift-4: :ns
+    shift-5: :cm
+    shift-6: :sec
+    shift-7: :pv
+    shift-8: :node
+    shift-9: :ctx 

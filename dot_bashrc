@@ -1,73 +1,43 @@
-# ~/.zshrc: executed by zsh for interactive shells
+# ~/.bashrc: executed by bash for non-login shells
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
-# Set language
+# History control
+HISTCONTROL=ignoreboth
+HISTSIZE=10000
+HISTFILESIZE=20000
+shopt -s histappend
+
+# Check window size after each command
+shopt -s checkwinsize
+
+# Make less more friendly for non-text input files
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# Set prompt
+if [ -f "$HOME/.bash_prompt" ]; then
+    . "$HOME/.bash_prompt"
+fi
+
+# No greeting message
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+# Language settings
 export LANG=en_US.UTF-8
 
 # Path enhancements
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 
-# History configuration
-HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
-setopt APPEND_HISTORY        # append history instead of overwriting
-setopt EXTENDED_HISTORY      # write format
-setopt HIST_VERIFY           # verify before executing history substitution
-setopt INC_APPEND_HISTORY    # immediately append commands
-setopt SHARE_HISTORY         # share history between shell instances
-setopt HIST_IGNORE_ALL_DUPS  # ignore all duplicates
-setopt HIST_IGNORE_SPACE     # don't record commands beginning with a space
-setopt HIST_REDUCE_BLANKS    # remove unnecessary blanks
-
-# Basic zsh settings
-setopt AUTO_CD               # change to directory without cd
-setopt EXTENDED_GLOB         # extended pattern matching
-setopt COMPLETE_IN_WORD      # complete from both ends
-setopt ALWAYS_TO_END         # move cursor to end after completion
-setopt PROMPT_SUBST          # enable prompt substitution
-unsetopt BEEP                # no beep on error
-unsetopt LIST_BEEP           # no beep on ambiguous completion
-unsetopt HIST_BEEP           # no beep on history expansion error
-
 # Editor settings
 export EDITOR=nvim
 
 # Default pager
 export PAGER=less
-
-# Configure bat (no paging by default)
-export BAT_STYLE="numbers,changes"
-export BAT_THEME="TwoDark"
-unset BAT_PAGER
-
-# FZF configuration
-export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --preview 'bat --color=always --paging=never {}'"
-
-# Load integrations
-if command -v zoxide &> /dev/null; then
-    eval "$(zoxide init zsh)"
-fi
-
-if command -v starship &> /dev/null; then
-    eval "$(starship init zsh)"
-fi
-
-if command -v atuin &> /dev/null; then
-    eval "$(atuin init zsh)"
-fi
-
-# fzf integration
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Autocomplete
-autoload -Uz compinit
-compinit
-zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 # Modern CLI replacements
 if command -v eza &> /dev/null; then
@@ -76,6 +46,11 @@ if command -v eza &> /dev/null; then
     alias la="eza --color=always --icons=always --long --all"
     alias lt="eza --color=always --icons=always --tree"
 fi
+
+# Configure bat (no paging by default)
+export BAT_STYLE="numbers,changes"
+export BAT_THEME="TwoDark"
+unset BAT_PAGER
 
 # Override bat as 'cat' without paging
 if command -v bat &> /dev/null; then
@@ -92,7 +67,7 @@ if command -v rg &> /dev/null; then
     alias grep="rg"
 fi
 
-# Git aliases
+# Git abbreviations
 alias g="git"
 alias gs="git status"
 alias ga="git add"
@@ -104,7 +79,7 @@ alias gb="git branch"
 alias gco="git checkout"
 alias glog="git log --oneline --decorate --graph"
 
-# New tool aliases
+# New tool abbreviations
 if command -v lazygit &> /dev/null; then
     alias lg="lazygit"
 fi
@@ -124,6 +99,25 @@ alias ....="cd ../../.."
 alias v="nvim"
 alias c="code"
 alias cu="cursor"
+
+# FZF configuration
+if command -v fzf &> /dev/null; then
+    export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --preview 'bat --color=always --paging=never {}'"
+    [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+fi
+
+# Load integrations
+if command -v zoxide &> /dev/null; then
+    eval "$(zoxide init bash)"
+fi
+
+if command -v starship &> /dev/null; then
+    eval "$(starship init bash)"
+fi
+
+if command -v atuin &> /dev/null; then
+    eval "$(atuin init bash)"
+fi
 
 # Custom functions
 
@@ -190,9 +184,9 @@ clean-repos() {
     done
 }
 
-# Load DevOps specific functions
-if [ -f ~/.zsh_devops ]; then
-    source ~/.zsh_devops
+# DevOps aliases
+if [ -f ~/.bash_devops ]; then
+    source ~/.bash_devops
 fi
 
 # Start terminal multiplexer if not already in a session
@@ -203,6 +197,6 @@ if command -v zellij &> /dev/null; then
 fi
 
 # Source local customizations
-if [ -f ~/.zshrc.local ]; then
-    source ~/.zshrc.local
-fi
+if [ -f ~/.bashrc.local ]; then
+    source ~/.bashrc.local
+fi 

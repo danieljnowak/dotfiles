@@ -1,0 +1,126 @@
+#!/bin/bash
+# Init script for new machine setup
+# This will run when Chezmoi initializes a new machine
+
+set -e
+
+echo "Setting up your new machine..."
+
+# OS-specific setup
+case {{ .chezmoi.os }} in
+  "darwin")
+    # Install Homebrew if not present
+    if ! command -v brew >/dev/null 2>&1; then
+      echo "Installing Homebrew..."
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+    
+    # Define essential packages
+    ESSENTIAL_PKGS=(
+      fish
+      starship
+      ripgrep
+      fd
+      fzf
+      bat
+      eza
+      zoxide
+      git-delta
+      atuin
+      zellij
+      lazygit
+      bitwarden-cli
+      jq
+    )
+    
+    echo "Installing essential packages..."
+    brew install ${ESSENTIAL_PKGS[@]}
+    
+    {{ if .is_work_machine }}
+    # Work-specific setup
+    WORK_PKGS=(
+      docker
+      docker-compose
+      1password-cli
+    )
+    
+    echo "Installing work packages..."
+    brew install ${WORK_PKGS[@]}
+    {{ end }}
+    ;;
+    
+  "linux")
+    # Select the right package manager
+    if command -v apt >/dev/null 2>&1; then
+      PKG_MANAGER="apt"
+      PKG_INSTALL="sudo apt update && sudo apt install -y"
+    elif command -v dnf >/dev/null 2>&1; then
+      PKG_MANAGER="dnf"
+      PKG_INSTALL="sudo dnf install -y"
+    elif command -v pacman >/dev/null 2>&1; then
+      PKG_MANAGER="pacman"
+      PKG_INSTALL="sudo pacman -Sy"
+    else
+      echo "Unsupported Linux distribution"
+      exit 1
+    fi
+    
+    # Install essential packages available in repositories
+    ESSENTIAL_PKGS=(
+      fish
+      ripgrep
+      fd-find
+      fzf
+      bat
+      zoxide
+      git
+      jq
+      npm
+    )
+    
+    echo "Installing essential packages..."
+    eval "${PKG_INSTALL} ${ESSENTIAL_PKGS[*]}"
+    
+    # Install packages that might need special handling
+    echo "Installing Starship..."
+    curl -sS https://starship.rs/install.sh | sh -s -- -y
+    
+    echo "Installing Atuin..."
+    bash <(curl https://raw.githubusercontent.com/atuinsh/atuin/main/install.sh)
+    
+    echo "Installing Bitwarden CLI..."
+    npm install -g @bitwarden/cli
+    
+    {{ if .is_work_machine }}
+    # Work-specific setup
+    WORK_PKGS=(
+      docker
+      docker-compose
+    )
+    
+    echo "Installing work packages..."
+    eval "${PKG_INSTALL} ${WORK_PKGS[*]}"
+    {{ end }}
+    ;;
+    
+  *)
+    echo "Unsupported operating system: {{ .chezmoi.os }}"
+    ;;
+esac
+
+# Set fish as default shell if it's not already
+FISH_PATH=$(which fish)
+if [[ "$SHELL" != "$FISH_PATH" ]]; then
+  echo "Setting fish as default shell..."
+  if grep -q "$FISH_PATH" /etc/shells; then
+    chsh -s "$FISH_PATH"
+  else
+    echo "$FISH_PATH" | sudo tee -a /etc/shells
+    chsh -s "$FISH_PATH"
+  fi
+fi
+
+# Make sure ~/.local/bin exists and is in PATH
+mkdir -p "$HOME/.local/bin"
+
+echo "Machine setup complete!" 

@@ -4,3 +4,130 @@
 [user]
     name = {{ .git_name }}
     email = {{ .git_email }}
+
+[core]
+    editor = {{ if .nvim }}nvim{{ else }}vim{{ end }}
+    excludesfile = ~/.gitignore_global
+    pager = delta
+    whitespace = trailing-space,space-before-tab
+    autocrlf = input
+    
+[init]
+    defaultBranch = main
+    
+[color]
+    ui = auto
+    diff = auto
+    status = auto
+    branch = auto
+    
+[fetch]
+    prune = true
+    
+[pull]
+    rebase = true
+    
+[push]
+    default = current
+    autoSetupRemote = true
+    
+[merge]
+    ff = only
+    conflictstyle = diff3
+    tool = {{ if .nvim }}nvim{{ else }}vimdiff{{ end }}
+    
+[rebase]
+    autosquash = true
+    
+[diff]
+    algorithm = histogram
+    colorMoved = default
+    tool = {{ if .nvim }}nvim{{ else }}vimdiff{{ end }}
+    
+[difftool]
+    prompt = false
+    
+[difftool "nvim"]
+    cmd = nvim -d "$LOCAL" "$REMOTE"
+    
+[commit]
+    template = ~/.gitmessage
+    verbose = true
+    
+[delta]
+    navigate = true
+    light = false
+    line-numbers = true
+    side-by-side = true
+    
+[alias]
+    # Short commands
+    st = status
+    ci = commit
+    co = checkout
+    br = branch
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    
+    # Workflow helpers
+    wip = !git add -A && git commit -m "WIP: Work in progress"
+    unwip = reset HEAD~1
+    amend = commit --amend --no-edit
+    fixup = commit --fixup
+    undo = reset --soft HEAD^
+    prune-branches = !git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -D
+    
+    # Useful shorthands
+    unstage = reset HEAD --
+    last = log -1 HEAD
+    visual = !gitk
+    uncommit = reset --soft HEAD^
+    save = !git add -A && git commit -m 'SAVEPOINT'
+    
+    # Show aliases
+    aliases = !git config --get-regexp 'alias.*' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t => \\2/' | sort
+    
+    # Show history
+    ls = log --oneline
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+    
+    # Show changes
+    changes = diff --name-status
+    stat = diff --stat
+    
+    # Find stuff
+    find = !git ls-files | grep -i
+    grep-all = "!f() { git grep \"$1\" $(git rev-list --all); }; f"
+    
+    # Get recent branches
+    recent = for-each-ref --sort=-committerdate --count=10 --format='%(refname:short)' refs/heads/
+    
+    # Better stashing
+    stash-all = stash save --include-untracked
+    snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+    
+    # Show all tracked files
+    tracked = ls-tree -r --name-only HEAD
+    
+    # Show ignored files
+    ignored = ls-files --others --ignored --exclude-standard
+    
+    # Clean merged branches
+    clean-merged = "!git branch --merged | grep -v '\\*\\|master\\|main\\|dev\\|develop' | xargs -n 1 git branch -d"
+
+[credential]
+    helper = {{ if eq .chezmoi.os "darwin" }}osxkeychain{{ else if eq .chezmoi.os "windows" }}wincred{{ else }}cache --timeout=3600{{ end }}
+    
+[rerere]
+    enabled = true
+    
+[help]
+    autocorrect = 1
+    
+[http]
+    postBuffer = 524288000
+    
+[branch]
+    sort = -committerdate
+    
+[tag]
+    sort = version:refname
