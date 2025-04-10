@@ -1,0 +1,3 @@
+homedir: '{{ getenv "HOME" }}'
+git_name: '{{ promptString "Enter your Git name" }}'
+git_email: '{{ promptString "Enter your Git email" }}'
