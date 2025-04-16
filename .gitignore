@@ -1,0 +1,2 @@
+# Ignore local data file with secrets
+.chezmoidata.local.yaml 

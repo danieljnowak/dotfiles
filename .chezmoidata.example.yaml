@@ -1,0 +1,26 @@
+# Example local data file - COPY THIS TO .chezmoidata.local.yaml
+# This file contains sensitive information that should NOT be committed to git
+
+# Personal information (can be committed to git in .chezmoidata.yaml)
+# git_name: 'Your Name'
+# git_email: 'your.email@example.com'
+# nvim: true
+
+# Secrets (should only be in .chezmoidata.local.yaml)
+github_token: 'YOUR_GITHUB_TOKEN'
+openai_api_key: 'YOUR_OPENAI_API_KEY'
+
+# AWS Configuration
+# Non-sensitive AWS configuration can be in .chezmoidata.yaml
+# aws_default_region: 'us-west-2'
+# aws_work_region: 'us-east-1'
+# aws_work_role_arn: ''
+# aws_sso_start_url: ''
+# aws_sso_region: ''
+# aws_sso_account_id: ''
+# aws_sso_role_name: ''
+# aws_sso_region_use: ''
+
+# Sensitive AWS Configuration
+aws_access_key_id: 'YOUR_AWS_ACCESS_KEY'
+aws_secret_access_key: 'YOUR_AWS_SECRET_KEY' 

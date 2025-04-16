@@ -78,18 +78,29 @@ Most configuration is in the `~/.config` directory:
 
 ## Managing Secrets
 
-Secrets are managed through Bitwarden. The setup process will guide you through:
+Secrets are stored in a separate `.chezmoidata.local.yaml` file that is **not tracked by git**. This prevents accidentally committing sensitive information to your repository.
 
-1. Installing Bitwarden CLI if needed
-2. Logging in to your Bitwarden account
-3. Setting up a dedicated folder for dotfile secrets
-4. Creating/managing secrets like GitHub tokens
+When setting up on a new machine:
 
-Use the `get-secret` helper to retrieve secrets in scripts:
+1. Run `chezmoi init danieljnowak` to download the dotfiles
+2. Copy `.chezmoidata.example.yaml` to `.chezmoidata.local.yaml`
+3. Edit `.chezmoidata.local.yaml` with your secrets
+4. Run `chezmoi apply` to apply the configuration with your secrets
+
+You can also use the included `run_after_clone.sh` script after cloning the repository, which will guide you through this process:
 
 ```bash
-API_KEY=$(get-secret github_token)
+cd ~/.local/share/chezmoi  # Or wherever your source directory is
+./run_after_clone.sh
 ```
+
+Secrets are stored in `~/.env_secrets` which is set to mode 600 (read/write for owner only). To load these secrets in your shell:
+
+```bash
+source load-secrets
+```
+
+This will load environment variables like `GITHUB_TOKEN` and `OPENAI_API_KEY`.
 
 ## Update
 

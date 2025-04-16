@@ -1,0 +1,24 @@
+homedir: '{{ getenv "HOME" }}'
+git_name: 'Daniel Nowak'
+git_email: 'danielnowak@veryfi.com'
+
+# Editor preferences
+nvim: true
+
+# AWS Configuration (non-sensitive)
+aws_default_region: 'us-west-2'
+aws_work_region: 'us-east-1'
+aws_work_role_arn: ''
+aws_sso_start_url: ''
+aws_sso_region: ''
+aws_sso_account_id: ''
+aws_sso_role_name: ''
+aws_sso_region_use: ''
+
+# Installation options
+install_vscode: 'y'
+install_cursor: 'y'
+is_work_machine: 'n'
+
+# NOTE: Sensitive information like API keys and tokens should be stored in
+# .chezmoidata.local.yaml which is not tracked by git 

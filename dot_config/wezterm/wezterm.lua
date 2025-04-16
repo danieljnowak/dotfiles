@@ -122,11 +122,7 @@ config.keys = {
   { key = '3', mods = 'CMD|ALT', action = act.SwitchToWorkspace { name = 'servers' } },
   { key = 'n', mods = 'CMD|ALT', action = act.PromptInputLine {
     description = 'Enter workspace name',
-    action = wezterm.action_callback(function(window, pane, line)
-      if line then
-        window:perform_action(act.SwitchToWorkspace { name = line }, pane)
-      end
-    end),
+    action = act.SwitchToWorkspace { name = 'default' },
   }},
   
   -- Font size
@@ -173,31 +169,8 @@ config.mouse_bindings = {
   },
 }
 
--- Hyperlinks with improved rules
-config.hyperlink_rules = wezterm.default_hyperlink_rules()
-
--- Add custom domain links
-table.insert(config.hyperlink_rules, {
-  regex = [[(PR|pr|ISSUE|issue)#(\d+)\b]],
-  format = 'https://github.com/your-org/your-repo/pull/$2',
-})
-
--- Add file path detection
-table.insert(config.hyperlink_rules, {
-  regex = [[\b(file|path):([^:]+):(\d+)(?::(\d+))?]],
-  format = function(match)
-    local path = match[2]
-    local line = match[3]
-    local col = match[4] or '1'
-    return path .. ':' .. line .. ':' .. col
-  end,
-})
-
--- Add custom URL protocols
-table.insert(config.hyperlink_rules, {
-  regex = [[\b\w+://[\w.-]+(?:/[\w.-/]*)?]],
-  format = '$0',
-})
+-- Use only the default hyperlink rules to avoid issues
+config.hyperlink_rules = {}
 
 -- Scroll configuration
 config.scrollback_lines = 10000
