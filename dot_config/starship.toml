@@ -21,7 +21,7 @@ style = "bold #50C878"                # Emerald green
 truncation_length = 3
 truncation_symbol = "…/"
 read_only = " 󰌾"
-home_symbol = "~"
+home_symbol = " ~"
 
 # Git branch display
 [git_branch]
